@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Health Data Visualization Dashboard</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/interactive.css">
+    <link rel="stylesheet" href="css/d3_styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;500&family=Roboto+Mono&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1>Global Health Data Visualization Dashboard</h1>
+            <p class="subtitle">Interactive visualizations of global health metrics and trends</p>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#overview">Overview</a></li>
+                    <li><a href="#global-health">Global Health</a></li>
+                    <li><a href="#life-expectancy">Life Expectancy</a></li>
+                    <li><a href="#heart-disease">Heart Disease</a></li>
+                    <li><a href="#d3-visualizations">D3.js Visualizations</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="intro" id="overview">
+        <div class="container">
+            <h2>Introduction</h2>
+            <div class="intro-content">
+                <div class="intro-text">
+                    <p>This dashboard presents a comprehensive analysis of global health data through interactive visualizations. The data is sourced from three main datasets:</p>
+                    <ul>
+                        <li><strong>Global Health Dataset</strong>: Contains information about various diseases, their prevalence, mortality rates, and demographic factors across different countries.</li>
+                        <li><strong>Life Expectancy Dataset</strong>: Provides data on life expectancy trends, GDP, and population statistics for countries worldwide.</li>
+                        <li><strong>Heart Disease Dataset</strong>: Includes clinical data related to heart disease, such as cholesterol levels, age, and other health metrics.</li>
+                    </ul>
+                    <p>Each visualization is interactive - hover over elements to see detailed information, and use the controls to explore different aspects of the data.</p>
+                </div>
+                <div class="key-insights">
+                    <h3>Key Insights</h3>
+                    <ul>
+                        <li>Autoimmune diseases show the highest mortality rates among disease categories.</li>
+                        <li>There was a significant decrease in global mortality rates around 2015.</li>
+                        <li>Higher education indices correlate with lower disease prevalence rates.</li>
+                        <li>Life expectancy shows a positive correlation with GDP, though with diminishing returns at higher GDP levels.</li>
+                        <li>Age is a significant risk factor for heart disease, with distinct patterns in health metrics for affected individuals.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="dashboard-overview">
+        <div class="container">
+            <h2>Dashboard Overview</h2>
+            <div class="viz-grid">
+                <!-- Visualization thumbnails will be dynamically generated here -->
+            </div>
+        </div>
+    </section>
+
+    <section class="viz-category" id="global-health">
+        <div class="container">
+            <h2>Global Health Metrics</h2>
+            
+            <div class="viz-section" id="mortality_by_category" data-category="global-health">
+                <div class="viz-header">
+                    <h3>Average Mortality Rate by Disease Category</h3>
+                    <span class="chart-type">Bar Chart</span>
+                </div>
+                <div class="viz-content">
+                    <div class="viz-container">
+                        <iframe class="viz-iframe" src="images/mortality_by_category.html" frameborder="0"></iframe>
+                    </div>
+                    <div class="viz-info">
+                        <div class="viz-description">
+                            <h4>Description</h4>
+                            <p>This bar chart shows the average mortality rate for different disease categories. Autoimmune diseases have the highest mortality rate at around 5.12%, followed by Bacterial and Cardiovascular diseases.</p>
+                        </div>
+                        <div class="viz-insight">
+                            <h4>Key Insight</h4>
+                            <p>Autoimmune diseases show the highest mortality rates, suggesting a need for improved treatments and earlier diagnosis in this category.</p>
+                        </div>
+                        <div class="viz-actions">
+                            <a href="images/mortality_by_category.png" download class="btn download-btn">Download PNG</a>
+                            <button class="btn toggle-btn" data-iframe="images/mortality_by_category.html" data-img="images/mortality_by_category.png">Switch to Static</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="viz-section" id="mortality_over_years" data-category="global-health">
+                <div class="viz-header">
+                    <h3>Mortality Rate Over Years</h3>
+                    <span class="chart-type">Line Chart</span>
+                </div>
+                <div class="viz-content">
+                    <div class="viz-container">
+                        <iframe class="viz-iframe" src="images/mortality_over_years.html" frameborder="0"></iframe>
+                    </div>
+                    <div class="viz-info">
+                        <div class="viz-description">
+                            <h4>Description</h4>
+                            <p>This line chart tracks the average mortality rate across all diseases over time. There are notable fluctuations, with a significant dip around 2015.</p>
+                        </div>
+                        <div class="viz-insight">
+                            <h4>Key Insight</h4>
+                            <p>The mortality rate shows cyclical patterns with a major decrease around 2015, possibly indicating the impact of global health initiatives or improved treatment protocols during that period.</p>
+                        </div>
+                        <div class="viz-actions">
+                            <a href="images/mortality_over_years.png" download class="btn download-btn">Download PNG</a>
+                            <button class="btn toggle-btn" data-iframe="images/mortality_over_years.html" data-img="images/mortality_over_years.png">Switch to Static</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="viz-section" id="urbanization_vs_mortality" data-category="global-health">
+                <div class="viz-header">
+                    <h3>Urbanization Rate vs Mortality Rate by Country</h3>
+                    <span class="chart-type">Bubble Chart</span>
+                </div>
+                <div class="viz-content">
+                    <div class="viz-container">
+                        <iframe class="viz-iframe" src="images/urbanization_vs_mortality.html" frameborder="0"></iframe>
+                    </div>
+                    <div class="viz-info">
+                        <div class="viz-description">
+                            <h4>Description</h4>
+                            <p>This bubble chart explores the relationship between urbanization rates and mortality rates across different countries. The size of each bubble represents the population affected.</p>
+                        </div>
+                        <div class="viz-insight">
+                            <h4>Key Insight</h4>
+                            <p>There appears to be no strong correlation between urbanization and mortality rates, suggesting that other factors like healthcare quality and disease management may have more significant impacts on mortality outcomes.</p>
+                        </div>
+                        <div class="viz-actions">
+                            <a href="images/urbanization_vs_mortality.png" download class="btn download-btn">Download PNG</a>
+                            <button class="btn toggle-btn" data-iframe="images/urbanization_vs_mortality.html" data-img="images/urbanization_vs_mortality.png">Switch to Static</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="viz-section" id="education_vs_prevalence" data-category="global-health">
+                <div class="viz-header">
+                    <h3>Education Index vs Prevalence Rate by Country</h3>
+                    <span class="chart-type">Scatter Plot</span>
+                </div>
+                <div class="viz-content">
+                    <div class="viz-container">
+                        <iframe class="viz-iframe" src="images/education_vs_prevalence.html" frameborder="0"></iframe>
+                    </div>
+                    <div class="viz-info">
+                        <div class="viz-description">
+                            <h4>Description</h4>
+                            <p>This scatter plot examines the relationship between a country's education index and disease prevalence rates. The size of each point indicates the number of diseases recorded in that country.</p>
+                        </div>
+                        <div class="viz-insight">
+                            <h4>Key Insight</h4>
+                            <p>Countries with higher education indices tend to have lower disease prevalence rates, suggesting that education may play a role in disease prevention and health awareness.</p>
+                        </div>
+                        <div class="viz-actions">
+                            <a href="images/education_vs_prevalence.png" download class="btn download-btn">Download PNG</a>
+                            <button class="btn toggle-btn" data-iframe="images/education_vs_prevalence.html" data-img="images/education_vs_prevalence.png">Switch to Static</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="viz-section" id="mortality_heatmap" data-category="global-health">
+                <div class="viz-header">
+                    <h3>Heatmap of Mortality Rate by Country and Disease</h3>
+                    <span class="chart-type">Heatmap</span>
+                </div>
+                <div class="viz-content">
+                    <div class="viz-container">
+                        <iframe class="viz-iframe" src="images/mortality_heatmap.html" frameborder="0"></iframe>
+                    </div>
+                    <div class="viz-info">
+                        <div class="viz-description">
+                            <h4>Description</h4>
+                            <p>This heatmap visualizes mortality rates across different countries and diseases, with darker red indicating higher mortality rates.</p>
+                        </div>
+                        <div class="viz-insight">
+                            <h4>Key Insight</h4>
+                            <p>The heatmap reveals specific country-disease combinations with exceptionally high mortality rates, highlighting areas where targeted interventions could be most beneficial.</p>
+                        </div>
+                        <div class="viz-actions">
+                            <a href="images/mortality_heatmap.png" download class="btn download-btn">Download PNG</a>
+                            <button class="btn toggle-btn" data-iframe="images/mortality_heatmap.html" data-img="images/mortality_heatmap.png">Switch to Static</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="viz-section" id="disease_population_treemap" data-category="global-health">
+                <div class="viz-header">
+                    <h3>Total Population Affected by Disease Category</h3>
+                    <span class="chart-type">Treemap</span>
+                </div>
+                <div class="viz-content">
+                    <div class="viz-container">
+                        <iframe class="viz-iframe" src="images/disease_population_treemap.html" frameborder="0"></iframe>
+                    </div>
+                    <div class="viz-info">
+                        <div class="viz-description">
+                            <h4>Description</h4>
+                            <p>This treemap visualizes the total population affected by each disease category, with larger areas representing more affected people.</p>
+                        </div>
+                        <div class="viz-insight">
+                            <h4>Key Insight</h4>
+                            <p>Viral diseases affect the largest population globally, followed by respiratory diseases, highlighting the significant public health burden of these disease categories.</p>
+                        </div>
+                        <div class="viz-actions">
+                            <a href="images/disease_population_treemap.png" download class="btn download-btn">Download PNG</a>
+                            <button class="btn toggle-btn" data-iframe="images/disease_population_treemap.html" data-img="images/disease_population_treemap.png">Switch to Static</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="viz-section" id="mortality_choropleth" data-category="global-health">
+                <div class="viz-header">
+                    <h3>Average Mortality Rate by Country</h3>
+                    <span class="chart-type">Choropleth Map</span>
+                </div>
+                <div class="viz-content">
+                    <div class="viz-container">
+                        <iframe class="viz-iframe" src="images/mortality_choropleth.html" frameborder="0"></iframe>
+                    </div>
+                    <div class="viz-info">
+                        <div class="viz-description">
+                            <h4>Description</h4>
+                            <p>This choropleth map displays average mortality rates across different countries, with darker red indicating higher mortality rates.</p>
+                        </div>
+                        <div class="viz-insight">
+                            <h4>Key Insight</h4>
+                            <p>There are significant geographical disparities in mortality rates, with some regions showing consistently higher rates that may be linked to healthcare access, economic factors, or disease burden.</p>
+                        </div>
+                        <div class="viz-actions">
+                            <a href="images/mortality_choropleth.png" download class="btn download-btn">Download PNG</a>
+                            <button class="btn toggle-btn" data-iframe="images/mortality_choropleth.html" data-img="images/mortality_choropleth.png">Switch to Static</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="viz-category" id="life-expectancy">
+        <div class="container">
+            <h2>Life Expectancy Analysis</h2>
+            
+            <div class="viz-section" id="life_expectancy_over_time" data-category="life-expectancy">
+                <div class="viz-header">
+                    <h3>Average Life Expectancy Over Time</h3>
+                    <span class="chart-type">Area Chart</span>
+                </div>
+                <div class="viz-content">
+                    <div class="viz-container">
+                        <iframe class="viz-iframe" src="images/life_expectancy_over_time.html" frameborder="0"></iframe>
+                    </div>
+                    <div class="viz-info">
+                        <div class="viz-description">
+                            <h4>Description</h4>
+                            <p>This area chart shows how global average life expectancy has changed over time.</p>
+                        </div>
+                        <div class="viz-insight">
+                            <h4>Key Insight</h4>
+                            <p>Life expectancy has shown a general upward trend over the years, reflecting improvements in healthcare, nutrition, and living conditions worldwide.</p>
+                        </div>
+                        <div class="viz-actions">
+                            <a href="images/life_expectancy_over_time.png" download class="btn download-btn">Download PNG</a>
+                            <button class="btn toggle-btn" data-iframe="images/life_expectancy_over_time.html" data-img="images/life_expectancy_over_time.png">Switch to Static</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="viz-section" id="top_countries_life_expectancy" data-category="life-expectancy">
+                <div class="viz-header">
+                    <h3>Top 10 Countries by Average Life Expectancy</h3>
+                    <span class="chart-type">Bar Chart</span>
+                </div>
+                <div class="viz-content">
+                    <div class="viz-container">
+                        <iframe class="viz-iframe" src="images/top_countries_life_expectancy.html" frameborder="0"></iframe>
+                    </div>
+                    <div class="viz-info">
+                        <div class="viz-description">
+                            <h4>Description</h4>
+                            <p>This bar chart shows the top 10 countries with the highest average life expectancy.</p>
+                        </div>
+                        <div class="viz-insight">
+                            <h4>Key Insight</h4>
+                            <p>The top-ranking countries for life expectancy are predominantly developed nations with strong healthcare systems and high standards of living.</p>
+                        </div>
+                        <div class="viz-actions">
+                            <a href="images/top_countries_life_expectancy.png" download class="btn download-btn">Download PNG</a>
+                            <button class="btn toggle-btn" data-iframe="images/top_countries_life_expectancy.html" data-img="images/top_countries_life_expectancy.png">Switch to Static</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="viz-section" id="gdp_vs_life_expectancy" data-category="life-expectancy">
+                <div class="viz-header">
+                    <h3>GDP vs Life Expectancy</h3>
+                    <span class="chart-type">Scatter Plot</span>
+                </div>
+                <div class="viz-content">
+                    <div class="viz-container">
+                        <iframe class="viz-iframe" src="images/gdp_vs_life_expectancy.html" frameborder="0"></iframe>
+                    </div>
+                    <div class="viz-info">
+                        <div class="viz-description">
+                            <h4>Description</h4>
+                            <p>This scatter plot explores the relationship between a country's GDP and life expectancy, with point size representing population.</p>
+                        </div>
+                        <div class="viz-insight">
+                            <h4>Key Insight</h4>
+                            <p>There is a positive correlation between GDP and life expectancy, though the relationship plateaus at higher GDP levels, suggesting diminishing returns on healthcare investment beyond a certain point.</p>
+                        </div>
+                        <div class="viz-actions">
+                            <a href="images/gdp_vs_life_expectancy.png" download class="btn download-btn">Download PNG</a>
+                            <button class="btn toggle-btn" data-iframe="images/gdp_vs_life_expectancy.html" data-img="images/gdp_vs_life_expectancy.png">Switch to Static</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="viz-category" id="heart-disease">
+        <div class="container">
+            <h2>Heart Disease Insights</h2>
+            
+            <div class="viz-section" id="cholesterol_by_gender" data-category="heart-disease">
+                <div class="viz-header">
+                    <h3>Cholesterol Distribution by Gender</h3>
+                    <span class="chart-type">Violin Plot</span>
+                </div>
+                <div class="viz-content">
+                    <div class="viz-container">
+                        <iframe class="viz-iframe" src="images/cholesterol_by_gender.html" frameborder="0"></iframe>
+                    </div>
+                    <div class="viz-info">
+                        <div class="viz-description">
+                            <h4>Description</h4>
+                            <p>This violin plot shows the distribution of cholesterol levels between males and females in the heart disease dataset.</p>
+                        </div>
+                        <div class="viz-insight">
+                            <h4>Key Insight</h4>
+                            <p>Females show a wider distribution of cholesterol levels with a higher median value compared to males, which could be relevant for gender-specific approaches to cardiovascular health.</p>
+                        </div>
+                        <div class="viz-actions">
+                            <a href="images/cholesterol_by_gender.png" download class="btn download-btn">Download PNG</a>
+                            <button class="btn toggle-btn" data-iframe="images/cholesterol_by_gender.html" data-img="images/cholesterol_by_gender.png">Switch to Static</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="viz-section" id="age_by_heart_disease" data-category="heart-disease">
+                <div class="viz-header">
+                    <h3>Age Distribution by Heart Disease Presence</h3>
+                    <span class="chart-type">Box Plot</span>
+                </div>
+                <div class="viz-content">
+                    <div class="viz-container">
+                        <iframe class="viz-iframe" src="images/age_by_heart_disease.html" frameborder="0"></iframe>
+                    </div>
+                    <div class="viz-info">
+                        <div class="viz-description">
+                            <h4>Description</h4>
+                            <p>This box plot compares the age distribution between individuals with and without heart disease.</p>
+                        </div>
+                        <div class="viz-insight">
+                            <h4>Key Insight</h4>
+                            <p>Individuals with heart disease tend to be older on average, confirming age as a significant risk factor for cardiovascular conditions.</p>
+                        </div>
+                        <div class="viz-actions">
+                            <a href="images/age_by_heart_disease.png" download class="btn download-btn">Download PNG</a>
+                            <button class="btn toggle-btn" data-iframe="images/age_by_heart_disease.html" data-img="images/age_by_heart_disease.png">Switch to Static</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="viz-section" id="heart_disease_parallel" data-category="heart-disease">
+                <div class="viz-header">
+                    <h3>Heart Disease Feature Comparison</h3>
+                    <span class="chart-type">Parallel Coordinates Plot</span>
+                </div>
+                <div class="viz-content">
+                    <div class="viz-container">
+                        <iframe class="viz-iframe" src="images/heart_disease_parallel.html" frameborder="0"></iframe>
+                    </div>
+                    <div class="viz-info">
+                        <div class="viz-description">
+                            <h4>Description</h4>
+                            <p>This parallel coordinates plot shows the relationships between multiple features related to heart disease.</p>
+                        </div>
+                        <div class="viz-insight">
+                            <h4>Key Insight</h4>
+                            <p>Patients with heart disease tend to have distinct patterns across multiple health metrics, particularly in maximum heart rate and ST depression during exercise, which could be valuable for early detection.</p>
+                        </div>
+                        <div class="viz-actions">
+                            <a href="images/heart_disease_parallel.png" download class="btn download-btn">Download PNG</a>
+                            <button class="btn toggle-btn" data-iframe="images/heart_disease_parallel.html" data-img="images/heart_disease_parallel.png">Switch to Static</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="viz-category" id="d3-visualizations">
+        <div class="container">
+            <h2>D3.js Visualizations</h2>
+            
+            <div class="viz-section" id="d3_radial_life_expectancy" data-category="d3-visualizations">
+                <div class="viz-header">
+                    <h3>Life Expectancy Radial Visualization</h3>
+                    <span class="chart-type">Radial Chart (D3.js)</span>
+                </div>
+                <div class="viz-content">
+                    <div class="viz-container">
+                        <div id="d3-radial-container" class="d3-container"></div>
+                    </div>
+                    <div class="viz-info">
+                        <div class="viz-description">
+                            <h4>Description</h4>
+                            <p>This radial visualization shows life expectancy data across different countries, with distance from center representing life expectancy values and angles representing different countries.</p>
+                        </div>
+                        <div class="viz-insight">
+                            <h4>Key Insight</h4>
+                            <p>The radial pattern reveals clusters of countries with similar life expectancy values, highlighting regional patterns and global disparities in longevity.</p>
+                        </div>
+                        <div class="viz-actions">
+                            <button class="btn download-btn" id="download-radial">Download SVG</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="viz-section" id="d3_rect_heart_disease" data-category="d3-visualizations">
+                <div class="viz-header">
+                    <h3>Heart Disease Risk Factors</h3>
+                    <span class="chart-type">Rectilinear Chart (D3.js)</span>
+                </div>
+                <div class="viz-content">
+                    <div class="viz-container">
+                        <div id="d3-rect-container" class="d3-container"></div>
+                    </div>
+                    <div class="viz-info">
+                        <div class="viz-description">
+                            <h4>Description</h4>
+                            <p>This rectilinear visualization displays the relationship between key risk factors and heart disease presence, using D3.js to create an interactive and detailed representation of the data.</p>
+                        </div>
+                        <div class="viz-insight">
+                            <h4>Key Insight</h4>
+                            <p>The visualization reveals clear patterns in how certain risk factors correlate with heart disease, with particularly strong relationships visible for age, cholesterol levels, and maximum heart rate.</p>
+                        </div>
+                        <div class="viz-actions">
+                            <button class="btn download-btn" id="download-rect">Download SVG</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Data Sources</h3>
+                    <ul>
+                        <li>Global Health Dataset</li>
+                        <li>Life Expectancy Dataset</li>
+                        <li>Heart Disease Dataset</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Technologies Used</h3>
+                    <ul>
+                        <li>Python (Pandas, Plotly, Matplotlib)</li>
+                        <li>D3.js for custom visualizations</li>
+                        <li>HTML5, CSS3 & JavaScript</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>About</h3>
+                    <p>This dashboard was created to visualize and analyze global health data, providing insights into disease patterns, life expectancy trends, and heart disease factors.</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Global Health Data Visualization Dashboard</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Load scripts in the correct order -->
+    <script src="js/thumbnail_fix.js"></script>
+    <script src="js/fullscreen_fix.js"></script>
+    <script src="js/d3_visualizations_updated.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
